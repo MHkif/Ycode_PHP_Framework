@@ -1,0 +1,16 @@
+{
+    "name": "mhkif/tellme_chat",
+    "description": "Chat application built with php and mvc",
+    "autoload": {
+        "psr-4": {
+            "app\\": "./"
+        }
+    },
+    "authors": [
+        {
+            "name": "MHkif",
+            "email": "malikhkif@gmail.com"
+        }
+    ],
+    "require": {}
+}
