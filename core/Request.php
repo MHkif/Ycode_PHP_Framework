@@ -25,6 +25,12 @@ class Request
         $method = $_SERVER['REQUEST_METHOD'];
         return strtolower($method);
     }
+
+    public function isMethod($key)
+    {
+        return $this->get_method() == $key;
+    }
+
     public function get_params()
     {
         $params = [];
@@ -37,5 +43,24 @@ class Request
         } else {
             return false;
         }
+    }
+
+    public function requests_all()
+    {
+        $body = [];
+        if ($this->get_method() === 'get') {
+
+            foreach ($_GET as $key => $value) {
+                $body[$key] = filter_input(INPUT_GET, $key, FILTER_SANITIZE_SPECIAL_CHARS);
+            }
+        }
+        if ($this->get_method() === 'post') {
+
+            foreach ($_POST as $key => $value) {
+                $body[$key] = filter_input(INPUT_POST, $key, FILTER_SANITIZE_SPECIAL_CHARS);
+            }
+        }
+
+        return $body;
     }
 }

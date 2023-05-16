@@ -23,6 +23,7 @@ class Router
         $this->routes['get'][$path] = $callback;
     }
 
+
     public function post($path, $callback)
     {
         $this->routes['post'][$path] = $callback;
@@ -30,10 +31,12 @@ class Router
 
     public function put($path, $callback)
     {
+        $this->routes['put'][$path] = $callback;
     }
 
     public function delete($path, $callback)
     {
+        $this->routes['delete'][$path] = $callback;
     }
 
 
@@ -50,13 +53,7 @@ class Router
         }
 
         if (is_string($callback)) {
-            // $filename = __DIR__ . "/../resources/views/" . $callback . ".php";
-            // if (file_exists($filename)) {
-            // exit("The view $callback exists.");
-            return $this->renderView($callback);
-            // } else {
-            //     exit("The view $callback does not exist.");
-            // }
+       
         }
         if (is_array($callback)) {
 
@@ -65,7 +62,7 @@ class Router
 
             $callback[0] = new $callback[0]();
         }
-        return call_user_func($callback);
+        return call_user_func($callback, $this->request);
     }
 
     protected function layout($layout = "main")
