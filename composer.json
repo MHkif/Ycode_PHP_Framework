@@ -1,6 +1,6 @@
 {
-    "name": "mhkif/tellme_chat",
-    "description": "Chat application built with php and mvc",
+    "name": "devone/php_mvc_framework",
+    "description": "PHP MVC Framework",
     "autoload": {
         "psr-4": {
             "app\\": "./"
@@ -8,9 +8,10 @@
     },
     "authors": [
         {
-            "name": "MHkif",
-            "email": "malikhkif@gmail.com"
+            "name": "MHKIF"
         }
     ],
-    "require": {}
+    "require": {
+        "vlucas/phpdotenv": "^5.5"
+    }
 }

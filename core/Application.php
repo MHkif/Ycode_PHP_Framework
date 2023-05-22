@@ -9,13 +9,16 @@ class Application
     public Router $router;
     public Request $request;
     public Response $response;
-    public function __construct($app_root)
+    public Database $db;
+
+    public function __construct($app_root, array $config)
     {
         // Create instance of a router 
         self::$app = $this;
         $this->request = new Request();
         $this->response = new Response();
         $this->router = new Router($this->request, $this->response);
+        $this->db = new Database($config['db']);
         self::$APP_ROOT = $app_root;
     }
 

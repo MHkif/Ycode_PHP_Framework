@@ -3,26 +3,37 @@
 namespace app\core\Http\Controllers;
 
 use app\core\Request;
+use app\models\AuthModel;
 
 class AuthController extends Controller
 {
     public function login(Request $request)
     {
-        // die(var_dump($request->requests_all()));
+        $auth = new AuthModel();
         $request_body = $this->requests();
-        $email = $this->get_request("email");
-
-        die(var_dump($request_body));
+        $auth->load_data($request_body);
+        // die(var_dump($auth));
+        if($auth->validate()){
+            return "Login Form Submitted";
+        }
+        die(var_dump($auth->errors));
         return  "Login Form Submitted";
     }
 
     public function register(Request $request)
     {
-        // die(var_dump($request->requests_all()));
+     
+        $auth = new AuthModel();
         $request_body = $this->requests();
-        $email = $this->get_request("email");
+        $auth->load_data($request_body);
+        // die(var_dump($auth));
+        if($auth->validate("register")){
+            return "Register Form Submitted";
+        }
+        // die(var_dump($auth->errors));
 
-        die(var_dump($request_body));
-        return  "Register Form Submitted";
+        return $this->view('register', [
+            'auth' => $auth ,
+        ]);
     }
 }

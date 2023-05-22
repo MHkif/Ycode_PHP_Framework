@@ -26,16 +26,32 @@
                 </div>   
                         <div class="bg-black flex flex-col w-80 border border-gray-900 rounded-lg p-8 hover:border-orange-600">
 
-                            <form action="" method="post" class="flex flex-col space-y-8">
-                                <div class="flex flex-col space-y-4 text-left">
-                                    <label class="font-medium  text-white ">Username</label>
-                                    <input type="text" name="username"  placeholder="Username" class="border rounded py-3 px-3 mt-2 bg-black border-gray-600 placeholder-white-500 text-white  hover:border-orange-600">
-                                    <label class="font-medium  text-white">Email</label>
-                                    <input type="email" name="email"  placeholder="email@example.com" class="border rounded py-3 px-3 bg-black border-gray-600 placeholder-white-500 text-white  hover:border-orange-600">
-                                    <label class="font-medium  text-white">Password</label>
-                                    <input type="password"  name="password" placeholder="*****" class="border rounded py-3 px-3 mt-2 bg-black border-gray-600 placeholder-white-500 text-white  hover:border-orange-600">
+                            <form action="" method="post" class="flex flex-col space-y-6">
+                               
+                                <div class="flex flex-col space-y-3 text-left">
+                                    <div  class="flex flex-col gap-2">
+                                        <label class="font-medium  text-white ">Username</label>
+                                        <input type="text" name="username"  placeholder="Username" value="<?php echo $auth->username ?? "" ?>" class="border rounded py-3 px-3  bg-black <?php echo isset($auth) && $auth->hasError('username') ?  "border-red-600 hover:border-red-600" : "border-gray-600 hover:border-orange-600" ?>  placeholder-white-500 text-white ">
+                                        <small class="text-red-600"> <?php echo isset($auth) ?  $auth->getFirstError('username') : "" ?> </small>
+                                    </div>
 
+                                    <div  class="flex flex-col gap-2">
+                                        <label class="font-medium  text-white">Email</label>
+                                        <input type="text" name="email"  placeholder="email@example.com" value="<?php echo $auth->email ?? "" ?>" class="border rounded py-3 px-3 bg-black <?php echo isset($auth) &&  $auth->hasError('email') ?  "border-red-600 hover:border-red-600" : "border-gray-600 hover:border-orange-600" ?>  placeholder-white-500 text-white  "  >
+                                        <small class="text-red-600"> <?php echo isset($auth) ? $auth->getFirstError('email') : ""?> </small>
+                                    </div>
+                                    <div  class="flex flex-col gap-2">
+                                        <label class="font-medium  text-white">Password</label>
+                                        <input type="password"  name="password" placeholder="*****"  value="<?php echo $auth->password ?? "" ?>" class="border rounded py-3 px-3  bg-black <?php echo isset($auth) &&  $auth->hasError('password') ?  "border-red-600 hover:border-red-600" : "border-gray-600 hover:border-orange-600" ?>  placeholder-white-500 text-white ">
+                                        <small class="text-red-600"> <?php echo isset($auth) ? $auth->getFirstError('password') : ""?> </small>
+                                    </div>
+                                    <div  class="flex flex-col gap-2">
+                                        <label class="font-medium text-white">Confirm Password</label>
+                                        <input type="password"  name="confirm_password" placeholder="*****" class="border rounded py-3 px-3  bg-black <?php echo isset($auth) &&  $auth->hasError('password') ? "border-red-600 hover:border-red-600" : "border-gray-600 hover:border-orange-600" ?> placeholder-white-500 text-white ">
+                                        <small class="text-red-600"> <?php echo isset($auth) ? $auth->getFirstError('confirm_password') : "" ?> </small>
+                                    </div>
                                 </div>
+
                                 <button type="submit" class="border border-orange-600 bg-black text-white rounded py-3 font-semibold hover:border-gray-900 hover:bg-orange-600">Create Account</button>
                             </form>
                         </div>
