@@ -12,11 +12,13 @@ class Request
 
     public function get_path()
     {
-        $position = strpos($this->_global_path, "?") ?? false;
-        if ($position === false) {
-            return $this->_global_path;
-        }
-        $path = substr($this->_global_path, 0, $position);
+        // $position = strpos($this->_global_path, "?") ?? false;
+        // if ($position === false) {
+        //     return $this->_global_path;
+        // }
+        // $path = substr($this->_global_path, 0, $position);
+        $requestUri = parse_url($_SERVER['REQUEST_URI']);
+        $path = $requestUri['path'];
         return $path;
     }
 

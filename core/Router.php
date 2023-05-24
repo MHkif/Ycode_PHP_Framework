@@ -2,15 +2,20 @@
 
 namespace app\core;
 
-use app\core\Http\Controllers;
+// use app\core\Http\Controllers;
 
 class Router
 {
 
     public Request $request;
     public Response $response;
-    private $routes = [];
+    private static $routes = [];
 
+    private const METHOD_GET = "get";
+    private const METHOD_POST = "post";
+    private const METHOD_PUT = "put";
+    private const METHOD_PATCH = "patch";
+    private const METHOD_DELETE = "delete";
 
     public function __construct(Request $request, Response $response)
     {
@@ -18,51 +23,56 @@ class Router
         $this->response = $response;
     }
 
-    public function get($path, $callback)
+    public static function get($path, $handler)
     {
-        $this->routes['get'][$path] = $callback;
+        self::$routes[self::METHOD_GET][$path] = $handler;
+    }
+
+    public static function post($path, $handler)
+    {
+        self::$routes[self::METHOD_POST][$path] = $handler;
+    }
+
+    public static function put($path, $handler)
+    {
+        self::$routes[self::METHOD_PUT][$path] = $handler;
+    }
+
+    public static function patch($path, $handler)
+    {
+        self::$routes[self::METHOD_PATCH][$path] = $handler;
     }
 
 
-    public function post($path, $callback)
+    public static function delete($path, $handler)
     {
-        $this->routes['post'][$path] = $callback;
+        self::$routes[self::METHOD_DELETE][$path] = $handler;
     }
-
-    public function put($path, $callback)
-    {
-        $this->routes['put'][$path] = $callback;
-    }
-
-    public function delete($path, $callback)
-    {
-        $this->routes['delete'][$path] = $callback;
-    }
-
 
 
 
     public function resolve()
     {
         $path = $this->request->get_path();
+        // die(var_dump($path));
         $method = $this->request->get_method();
-        $callback = $this->routes[$method][$path] ?? false;
-        if ($callback === false) {
+        $handler = self::$routes[$method][$path] ?? false;
+
+        if ($handler === false) {
             $this->response->httpStatusCode(404);
             return $this->renderView('_404');
         }
 
-        if (is_string($callback)) {
-                   return $this->renderView($callback);
+        if (is_string($handler)) {
+            return $this->renderView($handler);
         }
-        if (is_array($callback)) {
+        if (is_array($handler)) {
 
             // $site = new SiteController();
             // $app->router->get('/', [$site, 'index']);
-
-            $callback[0] = new $callback[0]();
+            $handler[0] = new $handler[0]();
         }
-        return call_user_func($callback, $this->request);
+        return call_user_func($handler, $this->request);
     }
 
     protected function layout($layout = "main")

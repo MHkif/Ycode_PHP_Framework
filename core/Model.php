@@ -27,7 +27,7 @@ abstract class Model {
     }
     public function validate($auth="login"){
         foreach ($this->rules($auth) as $attribute => $rules) {
-            $value = $this->{$attribute}; // refers to object attributes
+            $value = $this->{$attribute} ; // refers to object attributes
             foreach ($rules as  $rule) {
                 $ruleName = $rule;
                 // && is_array($ruleName)
