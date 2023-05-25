@@ -70,6 +70,7 @@ class Router
 
             // $site = new SiteController();
             // $app->router->get('/', [$site, 'index']);
+            
             $handler[0] = new $handler[0]();
         }
         return call_user_func($handler, $this->request);
