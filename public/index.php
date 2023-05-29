@@ -2,7 +2,6 @@
 
 use Main\app\Http\Controllers\SiteController;
 use Main\app\Http\Controllers\AuthController;
-use Main\app\Application;
 use Main\app\Router;
 
 
@@ -12,16 +11,9 @@ $dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__));
 $dotenv->load();
 
 
-$config = [
-    'db' => [
-        'dsn' => $_ENV['DB_DSN'],
-        'user' => $_ENV['DB_USER'],
-        'password' => $_ENV['DB_PASSWORD']
-    ]
-];
 
-$app = new Application(dirname(__DIR__), $config);
 
+$app = require_once __DIR__.'/../bootsrap/app.php';
 
 Router::get('/', [SiteController::class, 'index']);
 Router::get('/login', [SiteController::class, 'login']);
