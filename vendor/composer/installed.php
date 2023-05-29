@@ -3,7 +3,7 @@
         'name' => 'devone/php_mvc_framework',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '140c1c2a890218569f8fd69c1a3660d664b96f58',
+        'reference' => '9a0abbf53d04badcc18ef960dcfc907a538a38ce',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'devone/php_mvc_framework' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '140c1c2a890218569f8fd69c1a3660d664b96f58',
+            'reference' => '9a0abbf53d04badcc18ef960dcfc907a538a38ce',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

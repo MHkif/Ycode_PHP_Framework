@@ -1,6 +1,6 @@
 <?php
 
-namespace app\core;
+namespace Main\app;
 
 abstract class Migration{
     
@@ -8,9 +8,9 @@ abstract class Migration{
     abstract public function down();
     protected static array $varchar = [];
 
-    protected static function createTable(string $table, string $values){
+    protected static function createTable(string $table, string $query){
        $db = Application::$app->db;
-       $SQL =  "CREATE TABLE IF NOT EXISTS $table($values) ENGINE=INNODB;";
+       $SQL =  "CREATE TABLE IF NOT EXISTS $table($query) ENGINE=INNODB;";
        $db->pdo->exec($SQL);
     }
 

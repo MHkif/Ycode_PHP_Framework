@@ -3,7 +3,7 @@
     "description": "PHP MVC Framework",
     "autoload": {
         "psr-4": {
-            "app\\": "./"
+            "Main\\": "./"
         }
     },
     "authors": [

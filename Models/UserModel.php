@@ -1,13 +1,18 @@
 <?php
 
-namespace app\models;
-use app\core\Model;
+namespace Main\models;
 
-class UserModel extends Model 
+use Main\app\Model;
+
+class UserModel extends Model
 {
     public string $username;
     public string $email;
     public string $password;
     public string $created_at;
 
+    public function rules($auth): array
+    {
+        return [];
+    }
 }

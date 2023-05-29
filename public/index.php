@@ -1,9 +1,9 @@
 <?php
 
-use app\core\Http\Controllers\SiteController;
-use app\core\Http\Controllers\AuthController;
-use app\core\Application;
-use app\core\Router;
+use Main\app\Http\Controllers\SiteController;
+use Main\app\Http\Controllers\AuthController;
+use Main\app\Application;
+use Main\app\Router;
 
 
 require_once __DIR__ . '/../vendor/autoload.php';

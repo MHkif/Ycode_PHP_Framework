@@ -1,9 +1,9 @@
 <?php
 
-namespace app\core\Http\Controllers;
+namespace Main\app\Http\Controllers;
 
-use app\core\Request;
-use app\models\AuthModel;
+use Main\app\Request;
+use Main\app\models\AuthModel;
 
 class AuthController extends Controller
 {

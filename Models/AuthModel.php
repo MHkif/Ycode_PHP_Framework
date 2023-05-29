@@ -1,8 +1,8 @@
 <?php
 
-namespace app\models;
+namespace Main\app\models;
 
-use app\core\Model;
+use Main\app\Model;
 
 class AuthModel extends Model
 {

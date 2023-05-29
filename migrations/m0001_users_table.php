@@ -1,6 +1,6 @@
 <?php 
 // namespace app\migrations;
-use app\core\Migration; 
+use Main\app\Migration; 
 
 class m0001_users_table extends Migration {
 

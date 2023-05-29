@@ -1,6 +1,6 @@
 <?php
 
-namespace app\core\Http\Controllers;
+namespace Main\app\Http\Controllers;
 
 
 class SiteController extends Controller
