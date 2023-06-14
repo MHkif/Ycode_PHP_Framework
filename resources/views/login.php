@@ -12,13 +12,13 @@
         <!-- </div> -->
 
         <div class="bg-black sm:w-1/2 xl:w-1/2 h-full hidden md:flex flex-auto items-center justify-center p-10 overflow-hidden  text-white bg-no-repeat bg-cover relative">
-            <div class="w-full lg:max-w-2xl md:max-w-md z-10 items-center text-center ">
+            <div class="w-full lg:max-w-2xl md:max-w-md z-10 items-center text-center space-y-8">
 
-                <div class="py-2 w-32 lg:w-44 mx-auto lg:py-4  rounded-bl-3xl rounded-tr-3xl bg-black ring ring-gray-900 hover:ring-orange-600  font-bold leading-tight mb-6  content-center items-center ">
-                    <h1 class="text-2xl lg:text-3xl rounded-bl-3xl rounded-tr-3xl text-orange-600">Tellme</h1>
+                <div class="py-2 w-32 lg:w-60 mx-auto lg:py-4  rounded-bl-3xl rounded-tr-3xl bg-black ring ring-gray-900 hover:ring-orange-600  font-bold leading-tight mb-6  content-center items-center ">
+                    <h1 class="text-2xl lg:text-3xl rounded-bl-3xl rounded-tr-3xl text-orange-600">YC Framework</h1>
                 </div>
                 <div class=" w-full font-bold leading-tight mx-auto">
-                    <h1 class="text-3xl lg:text-5xl ">Makes the Univers <span class="text-orange-600">Closer</span> to you</h1>
+                    <h1 class="text-3xl lg:text-5xl ">PHP in another <span class="text-orange-600 ">vision </span></h1>
                 </div>
             </div>
         </div>
@@ -26,14 +26,14 @@
             <div class="max-w-xl w-full space-y-12">
                 <div class="lg:text-left text-center">
                     <div class=" flex flex-col  gap-6 items-center justify-center ">
-                        <div class="md:hidden py-2 w-32 lg:w-44 mx-auto lg:py-4  rounded-bl-3xl rounded-tr-3xl bg-black ring ring-gray-900 hover:ring-orange-600  font-bold leading-tight mb-6  content-center items-center ">
-                            <h1 class="text-2xl lg:text-3xl rounded-bl-3xl rounded-tr-3xl text-orange-600">Tellme</h1>
+                        <div class="md:hidden py-2 w-48 lg:w-60 mx-auto lg:py-4  rounded-bl-3xl rounded-tr-3xl bg-black ring ring-gray-900 hover:ring-orange-600  font-bold leading-tight mb-6  content-center items-center ">
+                            <h1 class="text-2xl lg:text-3xl rounded-bl-3xl rounded-tr-3xl text-orange-600">YC Framework</h1>
                         </div>
                         <div class="bg-black flex flex-col w-80 border border-gray-900 rounded-lg p-8 hover:border-orange-600">
 
                             <form action="" method="post" class="flex flex-col space-y-8">
                                 <div class="flex flex-col space-y-4 text-left"><label class="font-medium  text-white">Email</label>
-                                    <input type="email" name="email" placeholder="email@example.com" class="border rounded py-3 px-3 bg-black border-gray-600 placeholder-white-500 text-white  hover:border-orange-600">
+                                    <input type="email" name="text" placeholder="email@example.com" class="border rounded p-2  bg-black <?php echo isset($auth) && $auth->hasError('username') ?  "border-red-600 hover:border-red-600" : "border-gray-600 hover:border-orange-600" ?>  placeholder-white-500 text-white ">
                                     <label class="font-medium  text-white">Password</label>
                                     <input type="password" name="password" placeholder="*****" class="border rounded py-3 px-3 mt-2 bg-black border-gray-600 placeholder-white-500 text-white  hover:border-orange-600">
 

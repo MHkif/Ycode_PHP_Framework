@@ -1,6 +1,6 @@
 <?php
 
-namespace Main\app\models;
+namespace Main\models;
 
 use Main\app\Model;
 
@@ -16,6 +16,7 @@ class AuthModel extends Model
     {
 
         if ($auth === "login") {
+            
             return [
                 'email' => [self::RULE_REQUIRED, self::RULE_EMAIL],
                 'password' => [self::RULE_REQUIRED],
@@ -32,6 +33,10 @@ class AuthModel extends Model
     }
 
     public function register()
+    {
+    }
+
+    public function login()
     {
     }
 }

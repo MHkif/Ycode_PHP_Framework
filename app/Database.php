@@ -5,15 +5,25 @@ namespace Main\app;
 class Database
 {
 
-    public \PDO $pdo;
+    public \PDO $connection;
+    private $extension = "PDO";
 
     public function __construct(array $config)
     {
         $dsn  = $config['dsn'] ?? '';
         $user = $config['user'] ?? '';
         $password = $config['password'] ?? '';
-        $this->pdo = new \PDO($dsn, $user, $password);
-        $this->pdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+        $this->connection = new \PDO($dsn, $user, $password);
+        $this->connection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+    }
+
+
+    public function query($query)
+    {
+        $statement = $this->connection->prepare($query);
+        $statement->execute();
+        return $statement->fetchAll();
+        // return ["users" => []];
     }
 
     public function applyMigrations()
@@ -50,7 +60,7 @@ class Database
 
     public function createMigrationsTable()
     {
-        $this->pdo->exec("CREATE TABLE IF NOT EXISTS migrations(
+        $this->connection->exec("CREATE TABLE IF NOT EXISTS migrations(
             id INT AUTO_INCREMENT PRIMARY KEY,
             migration VARCHAR(255),
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
@@ -59,7 +69,7 @@ class Database
 
     public function AppliedMigrations()
     {
-        $statement = $this->pdo->prepare("SELECT migration FROM migrations");
+        $statement = $this->connection->prepare("SELECT migration FROM migrations");
         $statement->execute();
         return $statement->fetchAll(\PDO::FETCH_COLUMN);
     }
@@ -67,7 +77,7 @@ class Database
     public function saveMigrations(array $migrations)
     {
         $migrations  = implode(",", array_map(fn ($m) => "('$m')", $migrations));
-        $statement = $this->pdo->prepare("INSERT INTO migrations(migration) VALUES($migrations)");
+        $statement = $this->connection->prepare("INSERT INTO migrations(migration) VALUES($migrations)");
         $statement->execute();
     }
 
@@ -75,6 +85,4 @@ class Database
     {
         echo PHP_EOL . '[ ' . date('Y-m-d H:i:s') . ' ] - ' . $message . PHP_EOL;
     }
-
-    
 }

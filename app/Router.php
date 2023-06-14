@@ -85,9 +85,10 @@ class Router
 
     protected function render($view, $params)
     {
-        foreach ($params as $key => $value) {
-            $$key = $value;
-        }
+        // foreach ($params as $key => $value) {
+        //     $$key = $value;
+        // }
+        extract($params);
 
         ob_start();
         include_once Application::$APP_ROOT . "/resources/views/$view.php";

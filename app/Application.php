@@ -24,6 +24,9 @@ class Application
 
     public function run()
     {
+        $users = $this->db->query("SELECT * FROM users");
+        dd($users);
+        
         // run the resolve method  from router 
         echo  $this->router->resolve();
     }
