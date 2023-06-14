@@ -6,13 +6,14 @@ class Database
 {
 
     public \PDO $connection;
-    private $extension = "PDO";
+
 
     public function __construct(array $config)
     {
-        $dsn  = $config['dsn'] ?? '';
-        $user = $config['user'] ?? '';
-        $password = $config['password'] ?? '';
+        // dd($config);
+        $dsn  = "mysql:" . http_build_query($config['db']['dsn'], '', ';') ?? '';
+        $user = $config['db']['user'] ?? 'root';
+        $password = $config['db']['password'] ?? '';
         $this->connection = new \PDO($dsn, $user, $password);
         $this->connection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
     }
@@ -23,7 +24,6 @@ class Database
         $statement = $this->connection->prepare($query);
         $statement->execute();
         return $statement->fetchAll();
-        // return ["users" => []];
     }
 
     public function applyMigrations()
