@@ -16,12 +16,17 @@ class Database
         $this->connection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
     }
 
+    public function statement($query): \PDOStatement
+    {
+        return  $this->connection->prepare($query);
+        // return $statement->execute();
+    }
 
-    public function query($query)
+    public function query($query, $params = [])
     {
         $statement = $this->connection->prepare($query);
-        $statement->execute();
-        return $statement->fetchAll();
+        $statement->execute($params);
+        return $statement;
     }
 
     public function applyMigrations()

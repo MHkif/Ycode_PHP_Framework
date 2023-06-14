@@ -8,7 +8,7 @@ class SiteController extends Controller
     public function index()
     {
         $params = [
-            'name' => "Mhkif"
+            'name' => "Abdelmalek Achkif"
         ];
 
         return $this->view('home', $params);

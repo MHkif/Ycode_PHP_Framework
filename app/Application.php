@@ -18,15 +18,17 @@ class Application
         $this->request = new Request();
         $this->response = new Response();
         $this->router = new Router($this->request, $this->response);
-      
-        $this->db = new Database($config,$config['db']['user']);
+
+        $this->db = new Database($config, $config['db']['user']);
         self::$APP_ROOT = $app_root;
     }
 
     public function run()
     {
-        $users = $this->db->query("SELECT * FROM users");
+        $users = $this->db->query("SELECT * FROM users WHERE id= :id", [":id" => 2])->fetch(\PDO::FETCH_OBJ);
+        echo "<pre>";
         dd($users);
+        echo "</pre>";
 
         // run the resolve method  from router 
         echo  $this->router->resolve();

@@ -1,6 +1,6 @@
 <?php
 
-$config = require_once 'config.php';
+$config = require_once '../config/config.php';
 
 $app = new Main\app\Application(dirname(__DIR__), $config);
 
