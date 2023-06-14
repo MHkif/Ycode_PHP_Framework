@@ -18,7 +18,8 @@ class Application
         $this->request = new Request();
         $this->response = new Response();
         $this->router = new Router($this->request, $this->response);
-        $this->db = new Database($config);
+      
+        $this->db = new Database($config,$config['db']['user']);
         self::$APP_ROOT = $app_root;
     }
 

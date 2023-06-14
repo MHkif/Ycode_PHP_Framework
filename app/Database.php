@@ -8,12 +8,10 @@ class Database
     public \PDO $connection;
 
 
-    public function __construct(array $config)
+    public function __construct(array $config, string $user = "root", string $password = "")
     {
         // dd($config);
         $dsn  = "mysql:" . http_build_query($config['db']['dsn'], '', ';') ?? '';
-        $user = $config['db']['user'] ?? 'root';
-        $password = $config['db']['password'] ?? '';
         $this->connection = new \PDO($dsn, $user, $password);
         $this->connection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
     }
