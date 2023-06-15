@@ -60,7 +60,7 @@ class Router
 
         if ($handler === false) {
             $this->response->httpStatusCode(404);
-            return $this->renderView('_404');
+            return abort();
         }
 
         if (is_string($handler)) {

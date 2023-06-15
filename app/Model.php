@@ -2,10 +2,11 @@
 
 namespace Main\app;
 
- 
-abstract class Model {
 
-    abstract public function rules($auth) : array;
+abstract class Model
+{
+
+    abstract public function rules($auth): array;
 
     public const RULE_REQUIRED = 'required';
     public const RULE_EMAIL = 'email';
@@ -17,56 +18,60 @@ abstract class Model {
 
     public array $errors = [];
 
-    public function load_data($data){
-        foreach($data as $key => $value){
-            if(property_exists($this, $key)){
+    public function load_data($data)
+    {
+        foreach ($data as $key => $value) {
+            if (property_exists($this, $key)) {
                 $this->{$key} = $value;
+                dd($this->{$key});
             }
         }
         return 'From Load Data';
     }
-    public function validate($auth="login"){
+    public function validate($auth)
+    {
         foreach ($this->rules($auth) as $attribute => $rules) {
-            $value = $this->{$attribute} ; // refers to object attributes
+            dd($attribute);
+            $value = $this->{$attribute}; // refers to object attributes
             foreach ($rules as  $rule) {
                 $ruleName = $rule;
                 // && is_array($ruleName)
-                if(!is_string($ruleName) ){
+                if (!is_string($ruleName)) {
                     $ruleName = $rule[0];
                 }
-                if($ruleName === self::RULE_REQUIRED && !$value){
+                if ($ruleName === self::RULE_REQUIRED && !$value) {
                     $this->setError($attribute, self::RULE_REQUIRED);
                 }
-                if($ruleName === self::RULE_EMAIL && !filter_var($value, FILTER_VALIDATE_EMAIL)){
+                if ($ruleName === self::RULE_EMAIL && !filter_var($value, FILTER_VALIDATE_EMAIL)) {
                     $this->setError($attribute, self::RULE_EMAIL);
                 }
 
-                if($ruleName === self::RULE_MIN && strlen($value) < $rule['min']){
+                if ($ruleName === self::RULE_MIN && strlen($value) < $rule['min']) {
                     $this->setError($attribute, self::RULE_MIN, $rule);
                 }
 
-                if($ruleName === self::RULE_MAX && strlen($value) > $rule['max']){
+                if ($ruleName === self::RULE_MAX && strlen($value) > $rule['max']) {
                     $this->setError($attribute, self::RULE_MAX, $rule);
                 }
-                if($ruleName === self::RULE_MATCH && $value !== $this->{$rule['match']} ){
+                if ($ruleName === self::RULE_MATCH && $value !== $this->{$rule['match']}) {
                     $this->setError($attribute, self::RULE_MATCH, $rule);
                 }
-              
             }
-
         }
         return empty($this->errors);
-        }
+    }
 
-    public function setError(string $attribute, string $rule, $params=[]){
+    public function setError(string $attribute, string $rule, $params = [])
+    {
         $message = $this->errorMessage()[$rule] ?? "";
         foreach ($params as $key => $value) {
-          $message= str_replace("{{$key}}",$value, $message);
+            $message = str_replace("{{$key}}", $value, $message);
         }
         $this->errors[$attribute][] = $message;
     }
 
-    public function errorMessage(){
+    public function errorMessage()
+    {
         return [
             self::RULE_REQUIRED => 'This field is required',
             self::RULE_EMAIL => 'This field must be valid email address',
@@ -77,11 +82,13 @@ abstract class Model {
         ];
     }
 
-    public function hasError($attribute){
+    public function hasError($attribute)
+    {
         return  $this->errors[$attribute] ?? false;
     }
 
-    public function getFirstError($attribute){
+    public function getFirstError($attribute)
+    {
         return $this->errors[$attribute][0] ?? false;
     }
 }
