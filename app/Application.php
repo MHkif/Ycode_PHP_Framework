@@ -25,7 +25,7 @@ class Application
 
     public function run()
     {
-        // $users = $this->db->query("SELECT * FROM users WHERE id= :id", [":id" => 2])->fetch(\PDO::FETCH_OBJ);
+        // $users = $this->db->query("SELECT * FROM users WHERE id= :id", [":id" => 2])->findOrFail();
         // echo "<pre>";
         // dd($users);
         // echo "</pre>";

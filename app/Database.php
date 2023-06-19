@@ -2,10 +2,14 @@
 
 namespace Main\app;
 
+use PDO;
+use PDOStatement;
+
 class Database
 {
 
-    public \PDO $connection;
+    public PDO $connection;
+    protected PDOStatement $statement;
 
 
     public function __construct(array $config, string $user = "root", string $password = "")
@@ -16,17 +20,41 @@ class Database
         $this->connection->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
     }
 
-    public function statement($query): \PDOStatement
-    {
-        return  $this->connection->prepare($query);
-        // return $statement->execute();
-    }
 
     public function query($query, $params = [])
     {
-        $statement = $this->connection->prepare($query);
-        $statement->execute($params);
-        return $statement;
+        $this->statement = $this->connection->prepare($query);
+        $this->statement->execute($params);
+        return $this;
+    }
+
+    public function find()
+    {
+        return $this->statement->fetch();
+    }
+
+
+    public function findOrFail()
+    {
+        if (!$this->find()) {
+            return abort();
+        }
+        return $this->find();
+    }
+
+
+    public function getAll()
+    {
+        return $this->statement->fetchAll();
+    }
+
+
+    public function getAllOrFail()
+    {
+        if (!$this->getAll()) {
+            return abort();
+        }
+        return $this->getAll();
     }
 
     public function applyMigrations()
@@ -60,7 +88,7 @@ class Database
         }
     }
 
-
+    
     public function createMigrationsTable()
     {
         $this->connection->exec("CREATE TABLE IF NOT EXISTS migrations(

@@ -32,7 +32,7 @@ class AuthController extends Controller
         $auth = new AuthModel();
         $request_body = $this->requests();
         $auth->load_data($request_body);
-        die(var_dump($auth));
+        // die(var_dump($auth));
         if ($auth->validate("register")) {
             return "Register Form Submitted";
         }

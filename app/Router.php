@@ -23,30 +23,30 @@ class Router
         $this->response = $response;
     }
 
-    public static function get($path, $handler)
+    public static function get($path, $controller)
     {
-        self::$routes[self::METHOD_GET][$path] = $handler;
+        self::$routes[self::METHOD_GET][$path] = $controller;
     }
 
-    public static function post($path, $handler)
+    public static function post($path, $controller)
     {
-        self::$routes[self::METHOD_POST][$path] = $handler;
+        self::$routes[self::METHOD_POST][$path] = $controller;
     }
 
-    public static function put($path, $handler)
+    public static function put($path, $controller)
     {
-        self::$routes[self::METHOD_PUT][$path] = $handler;
+        self::$routes[self::METHOD_PUT][$path] = $controller;
     }
 
-    public static function patch($path, $handler)
+    public static function patch($path, $controller)
     {
-        self::$routes[self::METHOD_PATCH][$path] = $handler;
+        self::$routes[self::METHOD_PATCH][$path] = $controller;
     }
 
 
-    public static function delete($path, $handler)
+    public static function delete($path, $controller)
     {
-        self::$routes[self::METHOD_DELETE][$path] = $handler;
+        self::$routes[self::METHOD_DELETE][$path] = $controller;
     }
 
 
@@ -54,26 +54,25 @@ class Router
     public function resolve()
     {
         $path = $this->request->get_path();
-        // die(var_dump($path));
         $method = $this->request->get_method();
-        $handler = self::$routes[$method][$path] ?? false;
+        $controller = self::$routes[$method][$path] ?? false;
 
-        if ($handler === false) {
-            $this->response->httpStatusCode(404);
+        if ($controller === false) {
+            $this->response->httpStatusCode(Response::HTTP_NOT_FOUND);
             return abort();
         }
 
-        if (is_string($handler)) {
-            return $this->renderView($handler);
+        if (is_string($controller)) {
+            return $this->renderView($controller);
         }
-        if (is_array($handler)) {
+        if (is_array($controller)) {
 
             // $site = new SiteController();
             // $app->router->get('/', [$site, 'index']);
-            
-            $handler[0] = new $handler[0]();
+
+            $controller[0] = new $controller[0]();
         }
-        return call_user_func($handler, $this->request);
+        return call_user_func($controller, $this->request);
     }
 
     protected function layout($layout = "main")
