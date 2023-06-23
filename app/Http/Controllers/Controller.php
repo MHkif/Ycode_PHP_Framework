@@ -3,20 +3,23 @@
 namespace Main\app\Http\Controllers;
 
 use Main\app\Application;
+use Main\app\Renderable;
 use Main\app\Request;
+use Main\app\Response;
 
-class Controller
+class Controller extends Renderable
 {
 
-    protected Request $request;
-    public function __construct()
-    {
-        $this->request = new Request();
-    }
-    protected function view($view, $params = [], $layout = "main")
-    {
-        return Application::$app->router->renderView($view, $params, $layout);
-    }
+    // protected Request $request;
+    // public function __construct()
+    // {
+    //     $this->request = new Request();
+    // }
+    // protected function view($view, $params = [], $layout = "main")
+    // {
+    //     // return Application::$app->router->renderView($view, $params, $layout);
+    //     return self::renderView($view, $params, $layout);
+    // }
     protected $middleware = [];
 
     public function getMiddleware(): array
@@ -31,17 +34,17 @@ class Controller
         // ));
     }
 
-    public function requests()
-    {
-        return $this->request->requests_all();
-    }
+    // public function requests()
+    // {
+    //     return Request::requests_all();
+    // }
 
     public function get_request(string $key)
     {
-        if (isset($this->request->requests_all()[$key])) {
-            return $this->request->requests_all()[$key];
+        if (isset(Request::requests_all()[$key])) {
+            return Request::requests_all()[$key];
         } else {
-            Application::$app->response->httpStatusCode(406);
+            Response::httpStatusCode(406);
             return "The key $key is not defined .";
         }
     }

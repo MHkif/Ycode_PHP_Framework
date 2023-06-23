@@ -23,7 +23,7 @@ abstract class Model
         foreach ($data as $key => $value) {
             if (property_exists($this, $key)) {
                 $this->{$key} = $value;
-                dd($this->{$key});
+               
             }
         }
         return 'From Load Data';
@@ -31,7 +31,7 @@ abstract class Model
     public function validate($auth)
     {
         foreach ($this->rules($auth) as $attribute => $rules) {
-            dd($attribute);
+          
             $value = $this->{$attribute}; // refers to object attributes
             foreach ($rules as  $rule) {
                 $ruleName = $rule;

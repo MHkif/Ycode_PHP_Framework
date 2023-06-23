@@ -11,9 +11,9 @@ class AuthController extends Controller
     {
 
         $auth = new AuthModel();
-        $request_body = $this->requests();
+        $request_body = Request::requests_all();
         $auth->load_data($request_body);
-        die(var_dump($auth));
+       
         if ($auth->validate("login")) {
             return $this->view('home', [
                 'name' => "Abdelmalek Achkif",
@@ -30,7 +30,7 @@ class AuthController extends Controller
     {
 
         $auth = new AuthModel();
-        $request_body = $this->requests();
+        $request_body = Request::requests_all();
         $auth->load_data($request_body);
         // die(var_dump($auth));
         if ($auth->validate("register")) {

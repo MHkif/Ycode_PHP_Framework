@@ -14,13 +14,12 @@ class Response
     public const  HTTP_NOT_FOUND = 404;
 
 
-    public function httpStatusCode($code)
+    static function httpStatusCode($code)
     {
         return http_response_code($code);
     }
 
-    public function json($data, $status)
+     function json($data, $status)
     {
-        
     }
 }
